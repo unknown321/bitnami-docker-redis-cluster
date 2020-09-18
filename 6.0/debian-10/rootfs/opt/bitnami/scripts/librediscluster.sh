@@ -90,6 +90,10 @@ redis_cluster_override_conf() {
         redis_conf_set tls-cluster yes
         redis_conf_set tls-replication yes
     fi
+
+    if ! (is_boolean_yes "$REDIS_CLUSTER_REQUIRE_FULL_COVERAGE"); then
+        redis_conf_set cluster-require-full-coverage no
+    fi
 }
 
 ########################
