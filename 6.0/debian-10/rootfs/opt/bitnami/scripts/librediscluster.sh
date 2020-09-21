@@ -94,6 +94,18 @@ redis_cluster_override_conf() {
     if ! (is_boolean_yes "$REDIS_CLUSTER_REQUIRE_FULL_COVERAGE"); then
         redis_conf_set cluster-require-full-coverage no
     fi
+    if is_boolean_yes "${REDIS_CLUSTER_REPLICA_NO_FAILOVER}"; then
+        redis_conf_set cluster-replica-no-failover yes
+    fi
+    if is_boolean_yes "${REDIS_CLUSTER_ALLOW_READS_WHEN_DOWN}"; then
+        redis_conf_set cluster-allow-reads-when-down yes
+    fi
+
+    redis_conf_set cluster-node-timeout "${REDIS_CLUSTER_NODE_TIMEOUT}"
+    redis_conf_set cluster-replica-validity-factor "${REDIS_CLUSTER_REPLICA_VALIDITY_FACTOR}"
+    redis_conf_set cluster-migration-barrier "${REDIS_CLUSTER_MIGRATION_BARRIER}"
+    redis_conf_set cluster-announce-port "${REDIS_CLUSTER_ANNOUNCE_PORT}"
+    redis_conf_set cluster-announce-bus-port "${REDIS_CLUSTER_ANNOUNCE_BUS_PORT}"
 }
 
 ########################
